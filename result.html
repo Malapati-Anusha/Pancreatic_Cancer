@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/background.JPG') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .overlay {
+            background-color: rgba(108, 151, 179, 0.9);
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .card {
+            background-color: rgba(214, 226, 236, 0.95);
+            border-radius: 20px;
+        }
+
+        .bullet-points ul {
+            padding-left: 20px;
+        }
+
+        .bullet-points ul li {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .result-heading {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0d47a1; /* Deep Blue */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #212529;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="container">
+            <div class="card shadow-lg p-4">
+                <div class="card-header text-white text-center" style="background-color: #1565c0; border-radius: 15px;">
+                    <h3 class="mb-0 fw-bold">Prediction Result</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead-text"><strong>Result :</strong> {{ result }}</p>
+                    <p class="lead-text"><strong>Percentage :</strong> {{ percentage }}%</p>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 text-center">
+                            <h5>Uploaded Image</h5>
+                            <img src="{{ url_for('static', filename=uploaded_image) }}" alt="Uploaded Image" class="img-fluid rounded shadow" style="width: 224px; height: 224px;">
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h5>Heatmap + Detected Region</h5>
+                            <img src="{{ url_for('static', filename=heatmap_image) }}" alt="Grad-CAM Result" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+
+                    {% if precautions %}
+                    <div class="mt-4 bullet-points">
+                        <h5 class="fw-bold">Precautions:</h5>
+                        <ul>
+                            {% for line in precautions.split('\n') %}
+                                <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4 text-center">
+                        <a href="/home" class="btn btn-secondary me-2">Back to Home</a>
+                        <a href="/logout" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

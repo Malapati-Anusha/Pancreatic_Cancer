@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Upload CT Scan</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/scripts.js" defer></script>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        button {
+            background-color: #6a0dad;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #4b0082;
+        }
+
+        a {
+            color: #6a0dad;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h3 style="text-align: center; color: #1b0e0ee5;">Welcome {{ user }}</h3>
+            <h1 style="text-align: center; color: #6a0606; font-size: 36px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+                PANCREATIC CANCER DETECTION
+            </h1>
+            
+            <div style="text-align: center;">
+                <img src="{{ url_for('static', filename='assets/logo.JPG') }}" alt="Pancreatic Cancer Logo" style="height: 120px; margin-bottom: 10px;">
+            </div>                       
+            <form method="POST" action="/predict" enctype="multipart/form-data">
+                <input type="file" name="image" id="image-upload" accept="image/*" required>
+                <img id="preview-image" src="#" style="display:none; width:100%; margin-top:10px; border-radius:12px;">
+                <button type="submit">Upload & Predict</button>
+            </form>
+            <p style="text-align:center; margin-top: 20px;"><a href="/logout">Logout</a></p>
+        </div>
+    </div>
+</body>
+</html>
